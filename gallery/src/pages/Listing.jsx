@@ -52,64 +52,69 @@ export default function Listing() {
   }));
 
   const backgroundImageStyle = {
-    backgroundImage: `url(${listing.imageUrls[0]})`,
-    height: 'calc(100vh - 60px)',
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${listing.imageUrls[0]})`,
   };
 
-  // console.log(images)
-  // console.log(listing.imageUrls[0])
   return (
-    <div className="relative bg-cover bg-center text-white flex flex-col justify-center items-center text-center">
-      <div
-        style={backgroundImageStyle}
-        className="bg-cover w-full bg-center text-white flex flex-col justify-center items-center text-center"
-      >
-
-        <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
-          <FaShare
-            className='text-slate-500'
+    <div className="min-h-screen">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        {/* Share Button */}
+        <div className='absolute top-24 right-6'>
+          <button
             onClick={() => {
               navigator.clipboard.writeText(window.location.href);
               setCopied(true);
-              setTimeout(() => {
-                setCopied(false);
-              }, 2000);
+              setTimeout(() => setCopied(false), 2000);
             }}
-          />
-        </div>
-        {copied && (
-          <p className='fixed top-[23%] right-[5%] z-10 rounded-md bg-gray-400 p-2'>
-            Link copied!
-          </p>
-        )}
-        <div className="relative z-10 p-4">
-          <h1 className="text-4xl md:text-6xl mb-4 font-bold">{listing.name}</h1>
-          <p className="flex items-center justify-center text-lg md:text-xl mb-6">
-            <FaUserCircle className="mr-2" /> by {listing.organizer_name}
-          </p>
-          <p className="flex items-center justify-center text-lg md:text-xl mb-6">
-            Ticket - {listing.ticketfee} $
-          </p>
-          {/* <div className="flex flex-col md:flex-row justify-center gap-4">
-            <button className="flex items-center gap-2 bg-transparent border-none text-white cursor-pointer text-lg md:text-xl hover:text-gray-300">
-              <FaThumbsUp /> Upvote
-            </button>
-            <button className="flex items-center gap-2 bg-transparent border-none text-white cursor-pointer text-lg md:text-xl hover:text-gray-300">
-              <FaThumbsDown /> Downvote
-            </button>
-            <button className="flex items-center gap-2 bg-transparent border-none text-white cursor-pointer text-lg md:text-xl hover:text-gray-300">
-              <FaPlus /> Add to List
-            </button>
-            <button className="flex items-center gap-2 bg-transparent border-none text-white cursor-pointer text-lg md:text-xl hover:text-gray-300">
-              <FaEllipsisH /> More
-            </button>
-          </div> */}
-          <p className=''>
-            {listing.description}
-          </p>
+            className='bg-white hover:bg-gray-100 p-3 rounded-full shadow-md transition-all'
+          >
+            <FaShare className='text-gray-700 text-xl' />
+          </button>
+          {copied && (
+            <div className='absolute top-12 right-0 bg-gray-600 text-white px-4 py-2 rounded-lg text-sm'>
+              Link copied!
+            </div>
+          )}
         </div>
 
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
+          {/* Main Image */}
+          <div className="lg:w-1/2">
+            <img
+              src={listing.imageUrls[0]}
+              alt={listing.name}
+              className="w-full aspect-[4/3] object-cover rounded-xl shadow-md"
+            />
+          </div>
 
+          {/* Content */}
+          <div className="lg:w-1/2 space-y-8 pt-4">
+            <div className="space-y-4">
+              <h1 className="text-3xl lg:text-5xl font-bold text-gray-800 leading-tight font-serif">
+                {listing.name}
+              </h1>
+
+              <div className="flex items-center gap-3 text-gray-600">
+                <FaUserCircle className="text-2xl" />
+                <span className="text-md font-medium">by {listing.organizer_name}</span>
+              </div>
+            </div>
+
+            <div className="border-t border-b border-gray-200 py-6">
+              <div className="flex items-baseline">
+                <span className="text-3xl font-bold text-gray-900">₹{listing.ticketfee}</span>
+                <span className="ml-2 text-md text-gray-600">per ticket</span>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold text-gray-800">About this event</h3>
+              <p className='text-lg text-gray-600 leading-relaxed'>
+                {listing.description}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <ImageGallery images={images} eventName={listing.name} />

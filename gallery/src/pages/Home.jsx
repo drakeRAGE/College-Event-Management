@@ -65,13 +65,13 @@ export default function Home() {
       // style={{ backgroundImage: `url(${background})` }}
       > */}
       <section className="relative text-gray-800">
-        <div className="mx-auto max-w-screen-xl px-4 py-20 lg:min-h-[85vh] lg:flex lg:items-center">
+        <div className="mx-auto max-w-screen-xl px-12 py-20 lg:min-h-[85vh] lg:flex lg:items-center">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-left space-y-6">
               <div className="space-y-2">
                 <h2 className="text-green-700 text-lg font-semibold tracking-wide">Welcome to</h2>
                 <h1 className="text-3xl lg:text-4xl font-bold">
-                  <span className="block text-gray-900">Govindh Ballabh Pant University</span>
+                  <span className="block text-gray-900">Govind Ballabh Pant University</span>
                   <span className="block bg-gradient-to-r from-green-600 via-blue-600 to-purple-700 bg-clip-text text-transparent">
                     Event Management System
                   </span>
@@ -92,12 +92,12 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </Link>
-                <Link
+                {/* <Link
                   to="/create-listing"
                   className="inline-flex items-center px-6 py-3 text-sm font-medium text-green-700 bg-white rounded-lg border border-green-700 hover:bg-green-50 transition-colors"
                 >
                   Create Event
-                </Link>
+                </Link> */}
               </div>
             </div>
 
@@ -108,7 +108,7 @@ export default function Home() {
               <img
                 src={pantnagar}
                 alt="GBPUAT Campus"
-                className="w-full max-h-[380px] object-fit rounded-lg"
+                className="max-w-full max-h-[350px] object-cover rounded-lg"
               />
               {/* </div> */}
             </div>
@@ -203,7 +203,7 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Instant Notifications</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Real-Time Updates</h3>
               <p className="text-gray-600 leading-relaxed">
                 Real-time updates and automated notifications ensure seamless communication across departments.
               </p>

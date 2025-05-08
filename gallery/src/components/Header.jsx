@@ -91,9 +91,9 @@ const Header = () => {
         </form>
         <nav className={`flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row ${menuOpen ? 'flex' : 'hidden'}`}>
           <a className="px-4 py-2 mt-2 text-sm font-semibold text-gray-700 rounded-lg md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/">Home</a>
+          <a className="px-4 py-2 mt-2 text-sm font-semibold text-gray-700 rounded-lg md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/events">Events</a>
           <a className="px-4 py-2 mt-2 text-sm font-semibold text-gray-700 rounded-lg md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/about">About</a>
           <a className="px-4 py-2 mt-2 text-sm font-semibold text-gray-700 rounded-lg md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/contact">Contact</a>
-          <a className="px-4 py-2 mt-2 text-sm font-semibold text-gray-700 rounded-lg md:mt-0 md:ml-4 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="/events">Events</a>
           <Link to="profile" className="ml-4">
             {currentUser ? (
               <img className="rounded-full h-10 w-10 object-cover border-2 border-gray-300" src={currentUser.avatar} alt="profile" />

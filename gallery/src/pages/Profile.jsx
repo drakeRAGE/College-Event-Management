@@ -160,7 +160,7 @@ export default function Profile() {
 
   return (
     <div style={{ minHeight: '92vh' }} className='p-8 max-w-3xl mx-auto'>
-      <h1 className='text-3xl font-bold text-gray-800 text-center mb-10'>Profile Settings</h1>
+      <h1 className='text-xl font-bold text-gray-800 text-center mb-10'>Profile Settings</h1>
 
       <form onSubmit={handleSubmit} className='flex flex-col gap-6'>
         <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fielRef} hidden accept='image/*' />
