@@ -174,57 +174,66 @@ export default function Home() {
       {/* Platform Features Section */}
       <section className="py-24">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-20">
+            <span className="text-green-600 font-medium text-sm tracking-wider uppercase">Our Platform</span>
+            <h2 className="text-4xl font-bold text-gray-900 mt-3 mb-4">
               Streamlined Event Management
             </h2>
-            <div className="w-20 h-1.5 bg-green-600 mx-auto mb-8 rounded-full"></div>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-light">
-              Advanced digital solutions for modern campus event organization
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Advanced digital solutions designed specifically for GBPUAT's event organization needs
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10">
-            <div className="p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-50">
-              <div className="text-green-600 mb-6 bg-green-50 p-4 rounded-lg inline-block">
-                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="group relative p-8 rounded-2xl transition-all duration-300 hover:translate-y-[-8px]">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-50 to-blue-50 shadow-sm"></div>
+              <div className="relative">
+                <div className="text-green-600 mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white shadow-sm">
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Smart Event Planning</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Intelligent scheduling system with automated conflict resolution and resource management for seamless event coordination.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Smart Event Planning</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Advanced scheduling system with intelligent conflict resolution and resource allocation capabilities.
-              </p>
             </div>
 
-            <div className="p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-50">
-              <div className="text-green-600 mb-6 bg-green-50 p-4 rounded-lg inline-block">
-                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                </svg>
+            <div className="group relative p-8 rounded-2xl transition-all duration-300 hover:translate-y-[-8px]">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 shadow-sm"></div>
+              <div className="relative">
+                <div className="text-blue-600 mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white shadow-sm">
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Real-Time Updates</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Instant notifications and live updates ensure perfect synchronization between all event stakeholders.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Real-Time Updates</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Real-time updates and automated notifications ensure seamless communication across departments.
-              </p>
             </div>
 
-            <div className="p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-50">
-              <div className="text-green-600 mb-6 bg-green-50 p-4 rounded-lg inline-block">
-                <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
+            <div className="group relative p-8 rounded-2xl transition-all duration-300 hover:translate-y-[-8px]">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-50 to-pink-50 shadow-sm"></div>
+              <div className="relative">
+                <div className="text-purple-600 mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white shadow-sm">
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Analytics Dashboard</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Powerful analytics tools providing actionable insights for better event planning and execution.
+                </p>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Analytics Dashboard</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Comprehensive analytics and reporting tools for data-driven event management decisions.
-              </p>
             </div>
           </div>
 
-          <div className="mt-20 text-center">
-            <p className="text-gray-700 max-w-3xl mx-auto leading-relaxed text-lg">
-              Elevate your campus events with our state-of-the-art management platform, designed to meet the sophisticated needs of GBPUAT's academic community.
+          <div className="mt-16 text-center">
+            <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-lg">
+              Experience seamless event management with our platform, tailored for GBPUAT's vibrant academic community.
             </p>
           </div>
         </div>
