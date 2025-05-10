@@ -24,7 +24,7 @@ export default function ListingItem({ listing }) {
             </p>
           </div>
           <p className='text-sm text-gray-600 line-clamp-2'>
-            Ticket - {listing.ticketfee} $
+            Ticket - {listing.ticketfee} ₹
           </p>
           <p className='text-sm text-gray-600 line-clamp-2'>
             {listing.description}

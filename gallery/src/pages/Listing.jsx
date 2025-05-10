@@ -118,7 +118,7 @@ export default function Listing() {
       </div>
 
       <ImageGallery images={images} eventName={listing.name} />
-      <Event_map location={listing.location} />
+      {/* <Event_map location={listing.location} /> */}
       <Footer />
     </div>
   );
