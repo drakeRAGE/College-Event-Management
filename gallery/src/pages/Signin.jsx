@@ -1,11 +1,13 @@
-import {useState}  from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice.jsx'
 import OAuth from '../components/OAuth.jsx';
 import { TERipple } from "tw-elements-react";
+import Pantnagar from '../assets/pantnagar.png';
+
 export default function SignIn() {
-  const [formData, setFormData]= useState({});
+  const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.user)
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,16 +15,16 @@ export default function SignIn() {
   const handleChnage = (e) => {
     setFormData({
       ...formData,
-      [e.target.id] : e.target.value,
+      [e.target.id]: e.target.value,
     });
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       dispatch(signInStart());
-      const res = await fetch('/api/auth/signin',  {
+      const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,13 +34,13 @@ export default function SignIn() {
       });
       const data = await res.json();
       // console.log(data);
-      if(data.success === false) {
+      if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
       }
       dispatch(signInSuccess(data));
       navigate('/');
-    } catch(error) {
+    } catch (error) {
       dispatch(signInFailure(error.message));
     }
   };
@@ -54,21 +56,21 @@ export default function SignIn() {
                 <div className="px-4 md:px-0 lg:w-6/12">
                   <div className="md:mx-6 md:p-12">
                     {/* <!--Logo--> */}
-                    <div className="text-center">
+                    <div className="text-center sm:mt-5">
                       <img
-                        className="mx-auto w-48"
-                        src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                        className="mx-auto w-48 rounded-full"
+                        src={Pantnagar}
                         alt="logo"
                       />
                       <h4 className="mb-10 mt-1 pb-1 text-xl font-semibold">
-                        We are The Drag Corp.
+                        Welcome to GBPUAT's Official Event Management Platform
                       </h4>
                     </div>
 
-                      {/* <p className="mb-4">Please login to your account</p> */}
+                    {/* <p className="mb-4">Please login to your account</p> */}
                     <form onSubmit={handleSubmit} className='flex flex-col gap-4 pb-2'>
-                      <input type="email" placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChnage}/>
-                      <input type="password" placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChnage}/>
+                      <input type="email" placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChnage} />
+                      <input type="password" placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChnage} />
                       <button disabled={loading} className='bg-red-500 text-white p-3 rounded-lg uppercase hover:opacity-90'>{loading ? 'Loading...' : 'Sign In'}</button>
                     </form>
                     <div className="flex items-center justify-between pb-1">
@@ -110,7 +112,7 @@ export default function SignIn() {
                   </div>
                 </div>
 
-      {/* {error && <p className='text-red-500 mt-5'>{error}</p>} */}
+                {/* {error && <p className='text-red-500 mt-5'>{error}</p>} */}
               </div>
             </div>
           </div>

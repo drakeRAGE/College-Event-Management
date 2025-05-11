@@ -1,27 +1,28 @@
-import {useState}  from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import OAuth from '../components/OAuth';
 import { TERipple } from "tw-elements-react";
+import Pantnagar from '../assets/pantnagar.png';
 
 export default function SignUp() {
-  const [formData, setFormData]= useState({});
+  const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleChnage = (e) => {
     setFormData({
       ...formData,
-      [e.target.id] : e.target.value,
+      [e.target.id]: e.target.value,
     });
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       // console.log('Form Submitted!');
       setLoading(true);
-      const res = await fetch('/api/auth/signup',  {
+      const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +31,7 @@ export default function SignUp() {
         body: JSON.stringify(formData)
       });
       const data = await res.json();
-      if(data.success === false) {
+      if (data.success === false) {
         setLoading(false);
         setError(data.message);
         return;
@@ -38,7 +39,7 @@ export default function SignUp() {
       setLoading(false);
       console.log(data);
       navigate('/sign-in');
-    } catch(error) {
+    } catch (error) {
       setLoading(false);
       setError(error.message);
     }
@@ -62,19 +63,19 @@ export default function SignUp() {
                       <div className="text-center">
                         <img
                           className="mx-auto w-48"
-                          src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                          src={Pantnagar}
                           alt="logo"
                         />
                         <h4 className=" mt-1 pb-1 text-xl font-semibold">
-                          We are The Drag Corp.
+                          Welcome to GBPUAT's Official Event Management Platform
                         </h4>
                       </div>
 
-                        {/* <p className="mb-4">Please login to your account</p> */}
+                      {/* <p className="mb-4">Please login to your account</p> */}
                       <form onSubmit={handleSubmit} className='flex flex-col gap-4 pb-2'>
-                        <input type="text" placeholder='username' className='border p-3 rounded-lg' id='username' onChange={handleChnage}/>
-                        <input type="email" placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChnage}/>
-                        <input type="password" placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChnage}/>
+                        <input type="text" placeholder='username' className='border p-3 rounded-lg' id='username' onChange={handleChnage} />
+                        <input type="email" placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChnage} />
+                        <input type="password" placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChnage} />
                         <button disabled={loading} className='bg-red-500 text-white p-3 rounded-lg uppercase hover:opacity-95'>{loading ? 'Loading...' : 'Sign Up'}</button>
                       </form>
                       <div className="flex items-center justify-between pb-1">
@@ -94,7 +95,7 @@ export default function SignUp() {
                       <div className='flex flex-col gap-4 pb-3'>
                         <p className='mb-1 pt-1 text-center'>Or</p>
                         <OAuth />
-                  {/* {error && <p className='text-red-500 mt-5'>{error}</p>} */}
+                        {/* {error && <p className='text-red-500 mt-5'>{error}</p>} */}
                       </div>
                     </div>
                   </div>
@@ -122,11 +123,11 @@ export default function SignUp() {
           </div>
         </div>
       </section>
-      
+
 
       {error && <p className='text-red-500 mt-5'>{error}</p>}
     </div>
 
-    
+
   )
 }

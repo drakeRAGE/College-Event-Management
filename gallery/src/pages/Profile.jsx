@@ -19,6 +19,10 @@ export default function Profile() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showSignOutModal, setShowSignOutModal] = useState(false);
 
+  const isAdmin = currentUser &&
+    currentUser.email === import.meta.env.VITE_ADMIN_EMAIL &&
+    currentUser.username === import.meta.env.VITE_ADMIN_USERNAME &&
+    currentUser._id === import.meta.env.VITE_ADMIN_ID;
   // console.log(filePercentage);
   // console.log(file);
   // console.log(fileUploadError);
@@ -218,12 +222,14 @@ export default function Profile() {
             {loading ? 'Updating...' : 'Update Profile'}
           </button>
 
-          <Link
-            className='block w-full py-3 rounded-lg font-medium text-center border-2 border-green-600 text-green-600 hover:bg-green-50 transition'
-            to={'/create-listing'}
-          >
-            Create Event
-          </Link>
+          {isAdmin && (
+            <Link
+              className='block w-full py-3 rounded-lg font-medium text-center border-2 border-green-600 text-green-600 hover:bg-green-50 transition'
+              to={'/create-listing'}
+            >
+              Create Event
+            </Link>
+          )}
         </div>
       </form>
 
@@ -332,68 +338,70 @@ export default function Profile() {
       {updateSuccess && <p className='text-green-600 mt-5'>Profile updated successfully!</p>}
 
       <div className='mt-12'>
-        <button
-          onClick={handleShowListing}
-          className='w-full text-gray-700 font-medium hover:text-gray-900 transition'
-        >
-          Show My Events
-        </button>
+        {isAdmin && (
+          <>
+            <button
+              onClick={handleShowListing}
+              className='w-full text-gray-700 font-medium hover:text-gray-900 transition'
+            >
+              Show My Events
+            </button>
 
-        {showListingsError &&
-          <p className='text-red-600 mt-3'>Error loading events</p>
-        }
+            {showListingsError && (
+              <p className='text-red-600 mt-3'>Error loading events</p>
+            )}
 
-        {userListings && userListings.length > 0 && (
-          <div className='mt-8'>
-            <h2 className='text-2xl font-semibold text-gray-800 mb-6'>Your Events</h2>
-            <div className='space-y-4'>
-              {userListings && userListings.length === 0 && (
-                <p className='text-gray-600 text-center mt-4'>
-                  No events created yet
-                </p>
-              )}
-              {userListings.map((listing) => (
-                <div key={listing._id} className='border border-gray-200 rounded-lg p-4 flex flex-col gap-4 bg-white/50 hover:bg-white/60 transition'>
-                  <div className='flex gap-4'>
-                    <img
-                      src={listing.imageUrls[0]}
-                      alt='listing cover'
-                      className='h-24 w-24 object-cover rounded-lg flex-shrink-0'
-                    />
-                    <div className='flex-1 min-w-0'>
-                      <h3 className='text-lg font-semibold text-gray-800 mb-2 truncate'>
-                        {listing.name}
-                      </h3>
-                      <p className='text-sm text-gray-600 line-clamp-2 overflow-hidden'>
-                        {listing.description}
-                      </p>
+            {userListings && userListings.length > 0 && (
+              <div className='mt-8'>
+                <h2 className='text-2xl font-semibold text-gray-800 mb-6'>Your Events</h2>
+                <div className='space-y-4'>
+                  {userListings && userListings.length === 0 && (
+                    <p className='text-gray-600 text-center mt-4'>
+                      No events created yet
+                    </p>
+                  )}
+                  {userListings.map((listing) => (
+                    <div key={listing._id} className='border border-gray-200 rounded-lg p-4 flex flex-col gap-4 bg-white/50 hover:bg-white/60 transition'>
+                      <div className='flex gap-4'>
+                        <img
+                          src={listing.imageUrls[0]}
+                          alt='listing cover'
+                          className='h-24 w-24 object-cover rounded-lg flex-shrink-0'
+                        />
+                        <div className='flex-1 min-w-0'>
+                          <h3 className='text-lg font-semibold text-gray-800 mb-2 truncate'>
+                            {listing.name}
+                          </h3>
+                          <p className='text-sm text-gray-600 line-clamp-2 overflow-hidden'>
+                            {listing.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className='flex justify-end gap-4 pt-2 border-t border-gray-100'>
+                        <Link
+                          to={`/update-listing/${listing._id}`}
+                          className='px-4 py-1.5 text-green-600 hover:bg-green-50 rounded-md font-medium text-sm'
+                        >
+                          Edit Event
+                        </Link>
+                        <button
+                          onClick={() => {
+                            setEventToDelete(listing._id);
+                            setShowDeleteEventModal(true);
+                          }}
+                          className='px-4 py-1.5 text-red-600 hover:bg-red-50 rounded-md font-medium text-sm'
+                        >
+                          Delete Event
+                        </button>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className='flex justify-end gap-4 pt-2 border-t border-gray-100'>
-                    <Link
-                      to={`/update-listing/${listing._id}`}
-                      className='px-4 py-1.5 text-green-600 hover:bg-green-50 rounded-md font-medium text-sm'
-                    >
-                      Edit Event
-                    </Link>
-                    <button
-                      onClick={() => {
-                        setEventToDelete(listing._id);
-                        setShowDeleteEventModal(true);
-                      }}
-                      className='px-4 py-1.5 text-red-600 hover:bg-red-50 rounded-md font-medium text-sm'
-                    >
-                      Delete Event
-                    </button>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            )}
+          </>
         )}
-
-
       </div>
     </div>
   )

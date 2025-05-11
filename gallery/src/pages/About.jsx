@@ -1,7 +1,7 @@
 
 export default function About() {
   return (
-    <div className='h-screen py-32 px-4 max-w-6xl mx-auto'>
+    <div className='min-h-screen py-24 px-4 max-w-6xl mx-auto'>
       <h1 className='text-4xl font-bold mb-6 text-slate-800'>About</h1>
       <p className='mb-6 text-lg text-slate-700 leading-relaxed'>
         Welcome to GBPUAT's comprehensive event management platform. Our system serves as the central hub for all university events, making it easier for students and faculty to stay connected with campus activities. From academic seminars to cultural festivals, we ensure that every university event is properly documented and easily accessible.
