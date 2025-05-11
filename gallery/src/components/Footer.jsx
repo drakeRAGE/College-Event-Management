@@ -24,9 +24,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
           <div className="flex flex-col">
             <Typography variant="h5" className="mb-6 text-gray-900">
-              G.B. Pant University
+              G.B. Pant University of Agriculture & Technology
             </Typography>
-            <Typography className="text-gray-600 mb-4">
+            <Typography className="text-gray-600 text-lg mb-4">
               Pantnagar, Udham Singh Nagar<br />
               Uttarakhand, India - 263145
             </Typography>
@@ -58,7 +58,7 @@ export default function Footer() {
         <div className="mt-12  border-t border-gray-200 py-4 md:flex-row md:justify-between">
           <Typography
             variant="small"
-            className="mb-4 text-center font-normal text-gray-700 md:mb-0 flex w-full items-center justify-center"
+            className="mb-4 text-center font-normal text-xl text-gray-700 md:mb-0 flex w-full items-center justify-center"
           >
             &copy; {currentYear} &nbsp; <a href="/"> GBPUAT Pantnagar</a>. All Rights Reserved.
           </Typography>

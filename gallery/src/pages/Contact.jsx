@@ -26,8 +26,8 @@ const Contact = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
 
-                                    <span className="mx-2 text-gray-800 truncate w-72">
-                                        G.B.P.U.A & T Pantnagar, Uttarakhand
+                                    <span className="mx-2 text-gray-800  w-72">
+                                        G.B. Pant University of Agriculture & Technology, Pantnagar, Uttarakhand, India
                                     </span>
                                 </p>
 
@@ -48,7 +48,7 @@ const Contact = () => {
                                 </p>
                             </div>
 
-                            <div className="mt-6 md:mt-8">
+                            {/* <div className="mt-6 md:mt-8">
                                 <h3 className="text-gray-300 ">Follow us</h3>
 
                                 <div className="flex mt-4 -mx-1.5 ">
@@ -78,7 +78,7 @@ const Contact = () => {
                                         </svg>
                                     </a>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* Right section */}

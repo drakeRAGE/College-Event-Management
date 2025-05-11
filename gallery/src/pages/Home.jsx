@@ -223,9 +223,9 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">Analytics Dashboard</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">Quick Sign-Up</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Powerful analytics tools providing actionable insights for better event planning and execution.
+                  Fast and intuitive registration process that lets students join events in just a few clicks—no forms, no friction.
                 </p>
               </div>
             </div>
