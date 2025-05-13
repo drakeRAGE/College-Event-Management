@@ -70,13 +70,15 @@ const App = () => {
         <h1 className="text-5xl font-bold text-gray-800 text-center mb-4">University Events</h1>
         <p className="text-gray-600 text-center mb-12 text-lg">Discover and participate in GBPUAT's diverse range of events</p>
 
-        <div className="flex flex-col sm:flex-row justify-center mb-12 gap-4">
+        <div className="flex flex-col sm:flex-row md:flex-row lg:flex-row justify-center mb-12 gap-4">
           {['previous', 'ongoing', 'upcoming'].map((tab) => (
             <button
               key={tab}
-              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 w-full sm:max-w-2 ${selectedTab === tab
-                ? 'bg-white text-gray-800 shadow-lg scale-105 border border-gray-100'
-                : 'bg-gray-50 text-gray-600 hover:bg-white hover:shadow'
+              className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all duration-300 w-full 
+                sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/6 
+                ${selectedTab === tab
+                  ? 'bg-white text-gray-800 shadow-lg scale-105 border border-gray-100'
+                  : 'bg-gray-50 text-gray-600 hover:bg-white hover:shadow'
                 }`}
               onClick={() => handleTabClick(tab)}
             >
