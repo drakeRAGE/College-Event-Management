@@ -12,9 +12,18 @@ import Listing from './pages/Listing'
 import Search from './pages/Search'
 import Contact from './pages/Contact'
 import Events from './pages/Events'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useEventNotification } from './hooks/useEventNotification'
 
 
 export default function App() {
+  // Initialize the notification system
+  const gotoEvents = () => {
+    window.location.href = '/events';
+  };
+  useEventNotification(gotoEvents);  // Pass the function directly, not as an object
+
   return (
     <BrowserRouter>
       <Header />
@@ -34,6 +43,20 @@ export default function App() {
           <Route path="/update-listing/:listingId" element={<UpdateListing />} />
         </Route>
       </Routes>
+
+      {/* Add ToastContainer at the end of the app */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </BrowserRouter>
-  )
+  );
 }
