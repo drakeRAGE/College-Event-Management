@@ -14,10 +14,10 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-const EVENT_MAP_API_KEY = '9145d9d11bfd4ed7a8440431d5a89bbf'; // OpenCage API key
+const EVENT_MAP_API_KEY = import.meta.env.VITE_OPENCAGE_API_KEY; // OpenCage API key
 
 const Event_map = ({ location }) => {
-  const [coordinates, setCoordinates] = useState({ lat: 28.7041, lng: 77.1025 }); // Default coordinates
+  const [coordinates, setCoordinates] = useState({ lat: 29.023341, lng: 79.491474 }); // Default coordinates
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,6 +33,8 @@ const Event_map = ({ location }) => {
 
         const { lat, lng } = response.data.results[0].geometry;
         setCoordinates({ lat, lng });
+
+        console.log("Fetched coordinates:", { lat, lng }); // Log the fetched coordinates to see if they are correct
       } catch (error) {
         console.error("Error fetching coordinates:", error);
       } finally {
