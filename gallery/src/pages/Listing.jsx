@@ -139,6 +139,21 @@ export default function Listing() {
     }
   };
 
+  // Add this function before the return statement
+  const getEventStatus = () => {
+    const currentDate = new Date();
+    const startDate = new Date(listing.startDate);
+    const endDate = new Date(listing.endDate);
+
+    if (currentDate < startDate) {
+      return 'upcoming';
+    } else if (currentDate >= startDate && currentDate <= endDate) {
+      return 'ongoing';
+    } else {
+      return 'past';
+    }
+  };
+
 
   // Add this JSX before the ImageGallery component
   return (
@@ -205,23 +220,37 @@ export default function Listing() {
 
       {/* Add this before ImageGallery */}
       {currentUser && !isAdmin && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {!isRegistered ? (
-            <button
-              onClick={() => setIsOpen(true)}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              Register for Event
-            </button>
+        <>
+          {(getEventStatus() === 'upcoming' || getEventStatus() === 'ongoing') ? (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              {!isRegistered ? (
+                <button
+                  onClick={() => setIsOpen(true)}
+                  className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                >
+                  Register for Event
+                </button>
+              ) : (
+                <button
+                  onClick={handleCancelRegistration}
+                  className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+                >
+                  Cancel Registration
+                </button>
+              )}
+              <p className="text-sm text-gray-600 mt-2 text-center">
+                {getEventStatus() === 'upcoming' ? 'Event starts on ' : 'Event ongoing until '}
+                {getEventStatus() === 'upcoming'
+                  ? new Date(listing.startDate).toLocaleDateString()
+                  : new Date(listing.endDate).toLocaleDateString()}
+              </p>
+            </div>
           ) : (
-            <button
-              onClick={handleCancelRegistration}
-              className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
-            >
-              Cancel Registration
-            </button>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              <p className="text-gray-600 text-center">This event has ended</p>
+            </div>
           )}
-        </div>
+        </>
       )}
 
       {/* Registration Modal */}
