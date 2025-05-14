@@ -73,7 +73,7 @@ export default function Home() {
                 <h1 className="text-3xl lg:text-4xl font-bold">
                   <span className="block text-gray-900">Govind Ballabh Pant University</span>
                   <span className="block bg-gradient-to-r from-green-600 via-blue-600 to-purple-700 bg-clip-text text-transparent">
-                    Event Management System for college students
+                    Event Management System
                   </span>
                 </h1>
               </div>

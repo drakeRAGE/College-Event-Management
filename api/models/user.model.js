@@ -16,6 +16,27 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    phone_no: {
+      type: String,
+      required: true,
+    },
+    college_id: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    college_name: {
+      type: String,
+      required: true,
+    },
+    branch: {
+      type: String,
+      required: true,
+    },
+    Batch_passing: {
+      type: Number,
+      required: true,
+    },
     avatar: {
       type: String,
       default:

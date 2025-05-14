@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
@@ -7,6 +7,8 @@ import { FaShare, FaThumbsUp, FaThumbsDown, FaPlus, FaEllipsisH, FaUserCircle } 
 import Event_map from '../components/Event_map';
 import ImageGallery from '../components/ImageGallery';
 import Footer from '../components/Footer';
+import { useSelector, useDispatch } from 'react-redux'
+import { Dialog, Transition } from '@headlessui/react';
 
 SwiperCore.use([Navigation]);
 
@@ -14,6 +16,18 @@ export default function Listing() {
   const [listing, setListing] = useState(null);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [registrationStatus, setRegistrationStatus] = useState(null);
+  const { currentUser } = useSelector((state) => state.user);
+
+  const isAdmin = currentUser &&
+    currentUser.email === import.meta.env.VITE_ADMIN_EMAIL &&
+    currentUser.username === import.meta.env.VITE_ADMIN_USERNAME &&
+    currentUser._id === import.meta.env.VITE_ADMIN_ID;
+
+  useEffect(() => {
+    console.log(currentUser, "currentUser updated");
+  }, [currentUser]);
   const params = useParams();
 
   useEffect(() => {
@@ -33,6 +47,40 @@ export default function Listing() {
     };
     fetchListing();
   }, [params.listingId]);
+
+  const handleRegister = async () => {
+    try {
+      const response = await fetch('/api/attendee/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Add this to include cookies in the request
+        body: JSON.stringify({
+          event_id: listing._id,
+          user_id: currentUser._id,
+          username: currentUser.username,
+          user_email: currentUser.email,
+          user_avatar: currentUser.avatar,
+          user_phone: currentUser.phone_no,
+          college_id: currentUser.college_id,
+          college_name: currentUser.college_name,
+          branch: currentUser.branch,
+          batch_passing: currentUser.Batch_passing,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setRegistrationStatus('success');
+      } else {
+        setRegistrationStatus('error');
+      }
+    } catch (error) {
+      setRegistrationStatus('error');
+    }
+  };
+
   if (error) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -55,6 +103,8 @@ export default function Listing() {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${listing.imageUrls[0]})`,
   };
 
+
+  // Add this JSX before the ImageGallery component
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -116,6 +166,103 @@ export default function Listing() {
           </div>
         </div>
       </div>
+
+      {/* Add this before ImageGallery */}
+      {currentUser && !isAdmin && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <button
+            onClick={() => setIsOpen(true)}
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+          >
+            Register for Event
+          </button>
+        </div>
+      )}
+
+      {/* Registration Modal */}
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  {registrationStatus === null ? (
+                    <>
+                      <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                        Confirm Registration
+                      </Dialog.Title>
+                      <div className="mt-2">
+                        <p className="text-sm text-gray-500">
+                          Are you sure you want to register for {listing.name}?
+                        </p>
+                      </div>
+                      <div className="mt-4 flex gap-4">
+                        <button
+                          type="button"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200"
+                          onClick={handleRegister}
+                        >
+                          Confirm
+                        </button>
+                        <button
+                          type="button"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="text-center py-4">
+                      {registrationStatus === 'success' ? (
+                        <div className="text-green-600">
+                          <h3 className="text-lg font-medium">Registration Successful!</h3>
+                          <p className="mt-2">You have been registered for the event.</p>
+                        </div>
+                      ) : (
+                        <div className="text-red-600">
+                          <h3 className="text-lg font-medium">Registration Failed</h3>
+                          <p className="mt-2">Please try again later.</p>
+                        </div>
+                      )}
+                      <button
+                        className="mt-4 inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
+                        onClick={() => {
+                          setIsOpen(false);
+                          setRegistrationStatus(null);
+                        }}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  )}
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
 
       <ImageGallery images={images} eventName={listing.name} />
       <Event_map location={listing.location} />

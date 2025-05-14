@@ -4,13 +4,27 @@ import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
 export const signup = async (req, res, next) => {
-  //   console.log(req.body);
-  const { username, email, password } = req.body;
+  const { 
+    username, 
+    email, 
+    password, 
+    phone_no, 
+    college_id, 
+    college_name, 
+    branch, 
+    Batch_passing 
+  } = req.body;
+  
   const hashedPassword = bcryptjs.hashSync(password, 10);
   const newUser = new User({
     username,
     email,
     password: hashedPassword,
+    phone_no,
+    college_id,
+    college_name,
+    branch,
+    Batch_passing
   });
 
   try {

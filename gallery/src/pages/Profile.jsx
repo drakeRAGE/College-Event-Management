@@ -19,6 +19,10 @@ export default function Profile() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showSignOutModal, setShowSignOutModal] = useState(false);
 
+  useEffect(() => {
+    console.log(currentUser, "currentUser updated");
+  }, [currentUser]);
+
   const isAdmin = currentUser &&
     currentUser.email === import.meta.env.VITE_ADMIN_EMAIL &&
     currentUser.username === import.meta.env.VITE_ADMIN_USERNAME &&
