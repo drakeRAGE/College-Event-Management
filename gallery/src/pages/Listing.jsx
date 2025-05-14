@@ -19,6 +19,8 @@ export default function Listing() {
   const [isOpen, setIsOpen] = useState(false);
   const [registrationStatus, setRegistrationStatus] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [showAttendees, setShowAttendees] = useState(false);
+  const [attendees, setAttendees] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
   const params = useParams();
 
@@ -60,6 +62,22 @@ export default function Listing() {
     };
     checkRegistrationStatus();
   }, [currentUser, listing]);
+
+  useEffect(() => {
+    const fetchAttendees = async () => {
+      if (!listing || !isAdmin) return;
+      try {
+        const res = await fetch(`/api/attendee/${listing._id}`, {
+          credentials: 'include'
+        });
+        const data = await res.json();
+        setAttendees(data);
+      } catch (error) {
+        console.error('Error fetching attendees:', error);
+      }
+    };
+    fetchAttendees();
+  }, [listing, isAdmin]);
 
   const handleRegister = async () => {
     try {
@@ -348,6 +366,52 @@ export default function Listing() {
         </Dialog>
       </Transition>
 
+      {/* Add this before ImageGallery */}
+      {isAdmin && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <button
+            onClick={() => setShowAttendees(!showAttendees)}
+            className="w-full bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+          >
+            <span>{showAttendees ? 'Hide' : 'Show'} Attendee List</span>
+            <FaEllipsisH className={`transform transition-transform ${showAttendees ? 'rotate-180' : ''}`} />
+          </button>
+
+          {showAttendees && (
+            <div className="mt-4 bg-white rounded-lg shadow overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">College</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch</th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {attendees.map((attendee, index) => (
+                      <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{attendee.username}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.user_email}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.college_name}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.branch}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.batch_passing}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {attendees.length === 0 && (
+                <div className="text-center py-4 text-gray-500">
+                  No attendees registered yet
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
       <ImageGallery images={images} eventName={listing.name} />
       <Event_map location={listing.location} />
       <Footer />
