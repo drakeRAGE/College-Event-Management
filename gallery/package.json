@@ -28,7 +28,8 @@
     "react-toastify": "^11.0.5",
     "redux-persist": "^6.0.0",
     "swiper": "^11.1.1",
-    "tw-elements-react": "^1.0.0-alpha-end"
+    "tw-elements-react": "^1.0.0-alpha-end",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

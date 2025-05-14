@@ -9,6 +9,8 @@ import ImageGallery from '../components/ImageGallery';
 import Footer from '../components/Footer';
 import { useSelector, useDispatch } from 'react-redux'
 import { Dialog, Transition } from '@headlessui/react';
+import * as XLSX from 'xlsx';
+import { FaDownload, FaSearch, FaTable } from 'react-icons/fa';
 
 SwiperCore.use([Navigation]);
 
@@ -174,6 +176,21 @@ export default function Listing() {
     }
   };
 
+  const exportToExcel = () => {
+    const dataToExport = sortedAndFilteredAttendees().map(attendee => ({
+      'Name': attendee.username,
+      'Email': attendee.user_email,
+      'Phone': attendee.user_phone,
+      'College': attendee.college_name,
+      'Branch': attendee.branch,
+      'Batch': attendee.batch_passing
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Attendees");
+    XLSX.writeFile(wb, `${listing.name}_Attendees.xlsx`);
+  };
 
   const sortedAndFilteredAttendees = () => {
     let filtered = [...attendees].filter(attendee =>
@@ -403,65 +420,96 @@ export default function Listing() {
 
           {showAttendees && (
             <div className="mt-4 bg-white rounded-lg shadow overflow-hidden">
-              <div className="p-4 border-b">
-                <input
-                  type="text"
-                  placeholder="Search attendees..."
-                  className="w-full px-4 py-2 border rounded-lg"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+              <div className="p-6 border-b border-gray-200">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="relative flex-1">
+                    <input
+                      type="text"
+                      placeholder="Search attendees..."
+                      className="w-full px-4 py-2 pr-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <FaSearch className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  </div>
+                  <button
+                    onClick={exportToExcel}
+                    className="inline-flex items-center px-4 py-2 bg-purple-400 text-white rounded-lg hover:bg-green-700 transition-colors gap-2 whitespace-nowrap"
+                  >
+                    <FaDownload />
+                    Export to Excel
+                  </button>
+                </div>
               </div>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avatar</th>
+                      <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profile</th>
                       {['Name', 'Email', 'College', 'Branch', 'Batch', 'Phone'].map(key => (
                         <th
                           key={key}
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                          className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer group hover:bg-gray-100"
                           onClick={() => setSortConfig({
-                            key,
-                            direction: sortConfig.key === key && sortConfig.direction === 'ascending' ? 'descending' : 'ascending'
+                            key: key.toLowerCase(),
+                            direction: sortConfig.key === key.toLowerCase() && sortConfig.direction === 'ascending' ? 'descending' : 'ascending'
                           })}
                         >
-                          {key.replace(/_/g, ' ')}
-                          {sortConfig.key === key && (
-                            <span className="ml-2">
+                          <div className="flex items-center gap-1">
+                            {key}
+                            <span className={`transition-opacity ${sortConfig.key === key.toLowerCase() ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'}`}>
                               {sortConfig.direction === 'ascending' ? '↑' : '↓'}
                             </span>
-                          )}
+                          </div>
                         </th>
                       ))}
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {sortedAndFilteredAttendees().map((attendee, index) => (
-                      <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <tr key={index} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <img
-                            src={attendee.user_avatar || 'default-avatar-url.jpg'}
-                            alt={attendee.username}
-                            className="h-10 w-10 rounded-full object-cover"
-                          />
+                          <div className="flex items-center">
+                            <img
+                              src={attendee.user_avatar || 'https://via.placeholder.com/40'}
+                              alt={attendee.username}
+                              className="h-10 w-10 rounded-full object-cover border-2 border-gray-200"
+                            />
+                          </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{attendee.username}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.user_email}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.college_name}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.branch}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.batch_passing}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.user_phone}</td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-gray-900">{attendee.username}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">{attendee.user_email}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">{attendee.college_name}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">{attendee.branch}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">{attendee.batch_passing}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-500">{attendee.user_phone}</div>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                {sortedAndFilteredAttendees().length === 0 && (
+                  <div className="text-center py-8 text-gray-500">
+                    <div className="text-lg font-medium">
+                      {searchTerm ? 'No matching attendees found' : 'No attendees registered yet'}
+                    </div>
+                    <p className="mt-2 text-sm text-gray-400">
+                      {searchTerm ? 'Try adjusting your search terms' : 'Attendees will appear here once they register'}
+                    </p>
+                  </div>
+                )}
               </div>
-              {sortedAndFilteredAttendees().length === 0 && (
-                <div className="text-center py-4 text-gray-500">
-                  {searchTerm ? 'No matching attendees found' : 'No attendees registered yet'}
-                </div>
-              )}
             </div>
           )}
         </div>
