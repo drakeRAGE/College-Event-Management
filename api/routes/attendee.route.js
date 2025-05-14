@@ -12,6 +12,6 @@ const router = express.Router();
 router.post('/register', registerForEvent);
 router.get('/:eventId', getEventAttendees);
 router.get('/check/:eventId/:userId', checkRegistration);
-router.delete('/cancel/:eventId', cancelRegistration);
+router.delete('/cancel/:eventId/:userId', cancelRegistration);
 
 export default router;

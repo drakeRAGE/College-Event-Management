@@ -39,7 +39,7 @@ export const cancelRegistration = async (req, res, next) => {
   try {
     const registration = await Attendee.findOneAndDelete({
       event_id: req.params.eventId,
-      user_id: req.user.id
+      user_id: req.params.userId
     });
     if (!registration) {
       return next(errorHandler(404, 'Registration not found'));

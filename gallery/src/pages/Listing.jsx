@@ -18,17 +18,14 @@ export default function Listing() {
   const [error, setError] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [registrationStatus, setRegistrationStatus] = useState(null);
+  const [isRegistered, setIsRegistered] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const params = useParams();
 
   const isAdmin = currentUser &&
     currentUser.email === import.meta.env.VITE_ADMIN_EMAIL &&
     currentUser.username === import.meta.env.VITE_ADMIN_USERNAME &&
     currentUser._id === import.meta.env.VITE_ADMIN_ID;
-
-  useEffect(() => {
-    console.log(currentUser, "currentUser updated");
-  }, [currentUser]);
-  const params = useParams();
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -48,6 +45,22 @@ export default function Listing() {
     fetchListing();
   }, [params.listingId]);
 
+  useEffect(() => {
+    const checkRegistrationStatus = async () => {
+      if (!currentUser || !listing) return;
+      try {
+        const res = await fetch(`/api/attendee/check/${listing._id}/${currentUser._id}`, {
+          credentials: 'include'
+        });
+        const data = await res.json();
+        setIsRegistered(data.isRegistered);
+      } catch (error) {
+        console.error('Error checking registration:', error);
+      }
+    };
+    checkRegistrationStatus();
+  }, [currentUser, listing]);
+
   const handleRegister = async () => {
     try {
       const response = await fetch('/api/attendee/register', {
@@ -55,7 +68,7 @@ export default function Listing() {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Add this to include cookies in the request
+        credentials: 'include',
         body: JSON.stringify({
           event_id: listing._id,
           user_id: currentUser._id,
@@ -73,6 +86,7 @@ export default function Listing() {
       const data = await response.json();
       if (response.ok) {
         setRegistrationStatus('success');
+        setIsRegistered(true);
       } else {
         setRegistrationStatus('error');
       }
@@ -101,6 +115,28 @@ export default function Listing() {
 
   const backgroundImageStyle = {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url(${listing.imageUrls[0]})`,
+  };
+
+  // Add cancel registration handler
+  const handleCancelRegistration = async () => {
+    try {
+      const response = await fetch(`/api/attendee/cancel/${listing._id}/${currentUser._id}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        setIsRegistered(false);
+        setRegistrationStatus('cancelled');
+        setIsOpen(true);
+      } else {
+        setRegistrationStatus('error');
+        setIsOpen(true);
+      }
+    } catch (error) {
+      setRegistrationStatus('error');
+      setIsOpen(true);
+    }
   };
 
 
@@ -170,12 +206,21 @@ export default function Listing() {
       {/* Add this before ImageGallery */}
       {currentUser && !isAdmin && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <button
-            onClick={() => setIsOpen(true)}
-            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-          >
-            Register for Event
-          </button>
+          {!isRegistered ? (
+            <button
+              onClick={() => setIsOpen(true)}
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            >
+              Register for Event
+            </button>
+          ) : (
+            <button
+              onClick={handleCancelRegistration}
+              className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+            >
+              Cancel Registration
+            </button>
+          )}
         </div>
       )}
 
@@ -227,7 +272,10 @@ export default function Listing() {
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md border border-transparent bg-gray-100 px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
-                          onClick={() => setIsOpen(false)}
+                          onClick={() => {
+                            setIsOpen(false);
+                            setRegistrationStatus(null);
+                          }}
                         >
                           Cancel
                         </button>
@@ -235,15 +283,22 @@ export default function Listing() {
                     </>
                   ) : (
                     <div className="text-center py-4">
-                      {registrationStatus === 'success' ? (
+                      {registrationStatus === 'success' && (
                         <div className="text-green-600">
                           <h3 className="text-lg font-medium">Registration Successful!</h3>
                           <p className="mt-2">You have been registered for the event.</p>
                         </div>
-                      ) : (
+                      )}
+                      {registrationStatus === 'error' && (
                         <div className="text-red-600">
                           <h3 className="text-lg font-medium">Registration Failed</h3>
                           <p className="mt-2">Please try again later.</p>
+                        </div>
+                      )}
+                      {registrationStatus === 'cancelled' && (
+                        <div className="text-yellow-600">
+                          <h3 className="text-lg font-medium">Registration Cancelled</h3>
+                          <p className="mt-2">You have cancelled your registration.</p>
                         </div>
                       )}
                       <button
