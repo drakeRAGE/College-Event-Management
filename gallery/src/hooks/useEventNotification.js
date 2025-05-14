@@ -56,7 +56,7 @@ export const useEventNotification = (onEventClick) => {
 
   useEffect(() => {
     fetchUpcomingEvents();
-    const interval = setInterval(fetchUpcomingEvents, 6000); 
+    const interval = setInterval(fetchUpcomingEvents, 10000); 
     return () => clearInterval(interval);
   }, [onEventClick]);
 
