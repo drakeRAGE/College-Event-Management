@@ -18,7 +18,7 @@ export default function CreateListing() {
         organizer_name: '',
         sponsers_detail: '',
         organizational_detail: '',
-        ticketfee: 50,
+        ticketfee: 0,
         startDate: '',
         endDate: '',
     });
@@ -212,7 +212,7 @@ export default function CreateListing() {
                                     onChange={handleChange}
                                     value={formData.ticketfee}
                                     id='ticketfee'
-                                    min='50'
+                                    min='0'
                                     max='50000'
                                 />
                             </div>
