@@ -21,6 +21,8 @@ export default function Listing() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [showAttendees, setShowAttendees] = useState(false);
   const [attendees, setAttendees] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
   const { currentUser } = useSelector((state) => state.user);
   const params = useParams();
 
@@ -170,6 +172,28 @@ export default function Listing() {
     } else {
       return 'past';
     }
+  };
+
+
+  const sortedAndFilteredAttendees = () => {
+    let filtered = [...attendees].filter(attendee =>
+      Object.values(attendee).some(value =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+
+    if (sortConfig.key) {
+      filtered.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === 'ascending' ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return filtered;
   };
 
 
@@ -379,33 +403,63 @@ export default function Listing() {
 
           {showAttendees && (
             <div className="mt-4 bg-white rounded-lg shadow overflow-hidden">
+              <div className="p-4 border-b">
+                <input
+                  type="text"
+                  placeholder="Search attendees..."
+                  className="w-full px-4 py-2 border rounded-lg"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">College</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Batch</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avatar</th>
+                      {['Name', 'Email', 'College', 'Branch', 'Batch', 'Phone'].map(key => (
+                        <th
+                          key={key}
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+                          onClick={() => setSortConfig({
+                            key,
+                            direction: sortConfig.key === key && sortConfig.direction === 'ascending' ? 'descending' : 'ascending'
+                          })}
+                        >
+                          {key.replace(/_/g, ' ')}
+                          {sortConfig.key === key && (
+                            <span className="ml-2">
+                              {sortConfig.direction === 'ascending' ? '↑' : '↓'}
+                            </span>
+                          )}
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {attendees.map((attendee, index) => (
+                    {sortedAndFilteredAttendees().map((attendee, index) => (
                       <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <img
+                            src={attendee.user_avatar || 'default-avatar-url.jpg'}
+                            alt={attendee.username}
+                            className="h-10 w-10 rounded-full object-cover"
+                          />
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{attendee.username}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.user_email}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.college_name}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.branch}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.batch_passing}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{attendee.user_phone}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-              {attendees.length === 0 && (
+              {sortedAndFilteredAttendees().length === 0 && (
                 <div className="text-center py-4 text-gray-500">
-                  No attendees registered yet
+                  {searchTerm ? 'No matching attendees found' : 'No attendees registered yet'}
                 </div>
               )}
             </div>
