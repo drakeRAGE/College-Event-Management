@@ -264,8 +264,14 @@ export default function Listing() {
 
             <div className="border-t border-b border-gray-200 py-6">
               <div className="flex items-baseline">
-                <span className="text-3xl font-bold text-gray-900">₹{listing.ticketfee}</span>
-                <span className="ml-2 text-md text-gray-600">per ticket</span>
+                {listing.ticketfee === 0 ? (
+                  <span className="text-3xl font-bold text-green-600">Free Entry</span>
+                ) : (
+                  <>
+                    <span className="text-3xl font-bold text-gray-900">₹{listing.ticketfee}</span>
+                    <span className="ml-2 text-md text-gray-600">per ticket</span>
+                  </>
+                )}
               </div>
             </div>
 
