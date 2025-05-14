@@ -36,7 +36,9 @@ export default function Listing() {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const res = await fetch(`/api/listing/get/${params.listingId}`);
+        const res = await fetch(`/api/listing/get/${params.listingId}`, {
+          credentials: 'include',
+        });
         const data = await res.json();
         if (data.success === false) {
           setError(true);
@@ -434,7 +436,7 @@ export default function Listing() {
                   </div>
                   <button
                     onClick={exportToExcel}
-                    className="inline-flex items-center px-4 py-2 bg-purple-400 text-white rounded-lg hover:bg-green-700 transition-colors gap-2 whitespace-nowrap"
+                    className="inline-flex items-center px-4 py-2 bg-purple-400 text-white rounded-lg hover:bg-purple-300 transition-colors gap-2 whitespace-nowrap"
                   >
                     <FaDownload />
                     Export to Excel
