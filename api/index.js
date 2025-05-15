@@ -5,6 +5,7 @@ import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 import listingRouter from './routes/listing.route.js';
+import attendeeRouter from './routes/attendee.route.js';
 import path from 'path';
 dotenv.config();
 
@@ -32,6 +33,7 @@ app.listen(3000, () => {
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/listing', listingRouter);
+app.use('/api/attendee', attendeeRouter);
 
 app.use(express.static(path.join(__dirname, '/gallery/dist')));
 // If you use create react app then change the

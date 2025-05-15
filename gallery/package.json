@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.3",
     "@material-tailwind/react": "^2.1.9",
     "@reduxjs/toolkit": "^2.2.2",
     "axios": "^1.7.2",
@@ -27,7 +28,8 @@
     "react-toastify": "^11.0.5",
     "redux-persist": "^6.0.0",
     "swiper": "^11.1.1",
-    "tw-elements-react": "^1.0.0-alpha-end"
+    "tw-elements-react": "^1.0.0-alpha-end",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

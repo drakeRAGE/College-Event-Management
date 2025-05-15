@@ -34,7 +34,6 @@ const Event_map = ({ location }) => {
         const { lat, lng } = response.data.results[0].geometry;
         setCoordinates({ lat, lng });
 
-        console.log("Fetched coordinates:", { lat, lng }); // Log the fetched coordinates to see if they are correct
       } catch (error) {
         console.error("Error fetching coordinates:", error);
       } finally {

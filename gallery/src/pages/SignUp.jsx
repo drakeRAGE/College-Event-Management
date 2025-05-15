@@ -73,10 +73,23 @@ export default function SignUp() {
 
                       {/* <p className="mb-4">Please login to your account</p> */}
                       <form onSubmit={handleSubmit} className='flex flex-col gap-4 pb-2'>
-                        <input type="text" placeholder='username' className='border p-3 rounded-lg' id='username' onChange={handleChnage} />
-                        <input type="email" placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChnage} />
-                        <input type="password" placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChnage} />
-                        <button disabled={loading} className='bg-red-500 text-white p-3 rounded-lg uppercase hover:opacity-95'>{loading ? 'Loading...' : 'Sign Up'}</button>
+                        <div className="grid grid-cols-2 gap-4">
+                          <input type="text" placeholder='username' className='border p-3 rounded-lg' id='username' onChange={handleChnage} />
+                          <input type="email" placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChnage} />
+                          
+                          <input type="tel" placeholder='Phone Number' className='border p-3 rounded-lg' id='phone_no' onChange={handleChnage} />
+                          <input type="text" placeholder='College ID' className='border p-3 rounded-lg' id='college_id' onChange={handleChnage} />
+                          
+                          <input type="text" placeholder='College Name' className='border p-3 rounded-lg' id='college_name' onChange={handleChnage} />
+                          <input type="text" placeholder='Branch' className='border p-3 rounded-lg' id='branch' onChange={handleChnage} />
+                          
+                          <input type="number" placeholder='Passing Year' className='border p-3 rounded-lg' id='Batch_passing' onChange={handleChnage} />
+                          <input type="password" placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChnage} />
+                        </div>
+                        
+                        <button disabled={loading} className='bg-red-500 text-white p-3 rounded-lg uppercase hover:opacity-95'>
+                          {loading ? 'Loading...' : 'Sign Up'}
+                        </button>
                       </form>
                       <div className="flex items-center justify-between pb-1">
                         <p className="mb-0 mr-2">Already have an account?</p>
