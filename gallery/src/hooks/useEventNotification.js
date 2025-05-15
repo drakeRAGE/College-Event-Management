@@ -34,9 +34,7 @@ export const useEventNotification = (onEventClick) => {
           draggable: true,
           onClick: onEventClick
         });
-      } else {
-        console.log('No new events found');
-      }
+      } 
 
       previousEventsRef.current = upcoming;
       setUpcomingEvents(upcoming);

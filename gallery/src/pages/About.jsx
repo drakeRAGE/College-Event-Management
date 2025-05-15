@@ -10,7 +10,7 @@ export default function About() {
         Our platform streamlines the way our university community discovers and engages with events. Whether you're interested in technical workshops, research presentations, cultural programs, or sports tournaments, you'll find all the information you need right here. We provide real-time updates, event schedules, and detailed information about past, present, and upcoming university activities.
       </p>
       <p className='mb-6 text-lg text-slate-700 leading-relaxed'>
-        Join us in celebrating the vibrant campus life of G.B. Pant University. This aims at bringing students across the university and host and extravaganza of culture, arts, and heritage. It provides an exposure to students by creating ferocious competitive environment thereby acting as a motivation to excel in their areas of interest.
+        Join us in celebrating vibrant campus life of G.B. Pant University. This aims at bringing students across the university and host and extravaganza of culture, arts, and heritage. It provides an exposure to students by creating ferocious competitive environment thereby acting as a motivation to excel in their areas of interest.
       </p>
       {/* <p className='mb-6 text-md text-slate-700 leading-relaxed'>
         Our event management system features an intuitive interface that allows you to easily browse through different categories of events. Each event listing provides comprehensive details including venue information, timings, registration requirements, and contact details of organizers. Students and faculty can access event materials, view photo galleries, and stay updated with any schedule changes or announcements.
