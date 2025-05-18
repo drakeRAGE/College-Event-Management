@@ -70,7 +70,7 @@ export default function Footer() {
         <div className="border-t border-gray-200 py-4 mt-8">
           <Typography
             variant="small"
-            className="text-center font-normal text-base md:text-xl text-gray-700 flex w-full items-center justify-center"
+            className="text-center font-normal text-xs sm:text-base md:text-xl text-gray-700 flex w-full items-center justify-center whitespace-nowrap"
           >
             &copy; {currentYear} &nbsp; <a href="/" className="hover:text-blue-600"> GBPUAT Pantnagar</a>. All Rights Reserved.
           </Typography>
