@@ -104,10 +104,10 @@ export default function SignIn() {
                 >
                   <div className="px-4 py-6 text-white md:mx-6 md:p-12">
                     <h4 className="mb-6 text-xl font-semibold">
-                      We are more than just a company
+                      We are more than just an event platform
                     </h4>
                     <p className="text-sm">
-                      Experience exceptional photo and gallery event management services tailored to bring your vision to life. Let us help you create unforgettable visual stories that will be cherished for years to come.
+                      Discover a smart and seamless way to manage college events—from creation and registration to participation and feedback. Empowering students and organizers to connect, engage, and make every campus event a meaningful experience.
                     </p>
                   </div>
                 </div>
