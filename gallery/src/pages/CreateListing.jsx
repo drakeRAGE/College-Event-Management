@@ -134,8 +134,9 @@ export default function CreateListing() {
                                     onChange={handleChange}
                                     value={formData.name}
                                     id='name'
+                                    required
                                     maxLength='40'
-                                    minLength='5'
+                                    minLength='3'
                                 />
                             </div>
                             <div>
@@ -146,6 +147,7 @@ export default function CreateListing() {
                                     onChange={handleChange}
                                     value={formData.description}
                                     id='description'
+                                    required
                                 />
                             </div>
                             <div>
@@ -157,6 +159,7 @@ export default function CreateListing() {
                                     onChange={handleChange}
                                     value={formData.location}
                                     id='location'
+                                    required
                                 />
                             </div>
                         </div>
@@ -174,6 +177,7 @@ export default function CreateListing() {
                                     onChange={handleChange}
                                     value={formData.organizer_name}
                                     id='organizer_name'
+                                    required
                                 />
                             </div>
                             <div>
@@ -214,6 +218,7 @@ export default function CreateListing() {
                                     id='ticketfee'
                                     min='0'
                                     max='50000'
+                                    required
                                 />
                             </div>
                             <div className='grid sm:grid-cols-2 gap-4'>
@@ -225,6 +230,7 @@ export default function CreateListing() {
                                         onChange={handleChange}
                                         value={formData.startDate}
                                         id='startDate'
+                                        required
                                     />
                                 </div>
                                 <div>
@@ -235,6 +241,7 @@ export default function CreateListing() {
                                         onChange={handleChange}
                                         value={formData.endDate}
                                         id='endDate'
+                                        required
                                     />
                                 </div>
                             </div>

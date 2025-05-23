@@ -168,8 +168,9 @@ export default function CreateListing() {
                                     onChange={handleChange}
                                     value={formData.name}
                                     id='name'
+                                    required
                                     maxLength='40'
-                                    minLength='5'
+                                    minLength='3'
                                 />
                             </div>
                             <div>
@@ -180,6 +181,7 @@ export default function CreateListing() {
                                     onChange={handleChange}
                                     value={formData.description}
                                     id='description'
+                                    required
                                 />
                             </div>
                             <div>
@@ -189,6 +191,7 @@ export default function CreateListing() {
                                     placeholder='Event venue'
                                     className='w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:outline-none focus:border-green-500'
                                     onChange={handleChange}
+                                    required
                                     value={formData.location}
                                     id='location'
                                 />
@@ -206,6 +209,7 @@ export default function CreateListing() {
                                     placeholder='Name of the organizer'
                                     className='w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-300 focus:outline-none focus:border-green-500'
                                     onChange={handleChange}
+                                    required
                                     value={formData.organizer_name}
                                     id='organizer_name'
                                 />
@@ -248,6 +252,7 @@ export default function CreateListing() {
                                     id='ticketfee'
                                     min='0'
                                     max='50000'
+                                    required
                                 />
                             </div>
                             {/* <div className='grid sm:grid-cols-2 gap-4'>
