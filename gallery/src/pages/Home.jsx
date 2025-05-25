@@ -73,7 +73,7 @@ export default function Home() {
                 <h1 className="text-3xl lg:text-4xl font-bold">
                   <span className="block text-gray-900">Govind Ballabh Pant University</span>
                   <span className="block bg-gradient-to-r from-green-600 via-blue-600 to-purple-700 bg-clip-text text-transparent">
-                    Event Management System
+                    Event Registration System
                   </span>
                 </h1>
               </div>
@@ -177,7 +177,7 @@ export default function Home() {
           <div className="text-center mb-20">
             <span className="text-green-600 font-medium text-sm tracking-wider uppercase">Our Platform</span>
             <h2 className="text-4xl font-bold text-gray-900 mt-3 mb-4">
-              Streamlined Event Management
+              Streamlined Event Registration
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Advanced digital solutions designed specifically for GBPUAT's event organization needs
@@ -233,7 +233,7 @@ export default function Home() {
 
           <div className="mt-16 text-center">
             <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-lg">
-              Experience seamless event management with our platform, tailored for GBPUAT's vibrant academic community.
+              Experience seamless event Registration with our platform, tailored for GBPUAT's vibrant academic community.
             </p>
           </div>
         </div>

@@ -67,7 +67,7 @@ export default function SignUp() {
                           alt="logo"
                         />
                         <h4 className=" mt-1 pb-1 text-xl font-semibold">
-                          Welcome to GBPUAT's Official Event Management Platform
+                          Welcome to GBPUAT's Official Event Registration Platform
                         </h4>
                       </div>
 
@@ -76,17 +76,17 @@ export default function SignUp() {
                         <div className="grid grid-cols-2 gap-4">
                           <input type="text" placeholder='username' className='border p-3 rounded-lg' id='username' onChange={handleChnage} />
                           <input type="email" placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChnage} />
-                          
+
                           <input type="tel" placeholder='Phone Number' className='border p-3 rounded-lg' id='phone_no' onChange={handleChnage} />
                           <input type="text" placeholder='College ID' className='border p-3 rounded-lg' id='college_id' onChange={handleChnage} />
-                          
+
                           <input type="text" placeholder='College Name' className='border p-3 rounded-lg' id='college_name' onChange={handleChnage} />
                           <input type="text" placeholder='Branch' className='border p-3 rounded-lg' id='branch' onChange={handleChnage} />
-                          
+
                           <input type="number" placeholder='Passing Year' className='border p-3 rounded-lg' id='Batch_passing' onChange={handleChnage} />
                           <input type="password" placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChnage} />
                         </div>
-                        
+
                         <button disabled={loading} className='bg-red-500 text-white p-3 rounded-lg uppercase hover:opacity-95'>
                           {loading ? 'Loading...' : 'Sign Up'}
                         </button>

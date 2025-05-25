@@ -63,7 +63,7 @@ export default function SignIn() {
                         alt="logo"
                       />
                       <h4 className="mb-10 mt-1 pb-1 text-xl font-semibold">
-                        Welcome to GBPUAT's Official Event Management Platform
+                        Welcome to GBPUAT's Official Event Registration Platform
                       </h4>
                     </div>
 
